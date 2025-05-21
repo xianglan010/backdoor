@@ -1,0 +1,7 @@
+data/**/*.jsonl
+data/**/*.tsv
+
+out_map/**/*.jsonl
+
+!.gitkeep
+!*/
