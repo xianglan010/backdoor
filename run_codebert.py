@@ -14,8 +14,9 @@ from model import Seq2Seq
 from tqdm import tqdm, trange
 from torch.utils.data import DataLoader, Dataset, SequentialSampler, RandomSampler,TensorDataset
 from torch.utils.data.distributed import DistributedSampler
-from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
+from transformers import (WEIGHTS_NAME, get_linear_schedule_with_warmup,
                           RobertaConfig, RobertaModel, RobertaTokenizer)
+from torch.optim import AdamW
 from typing import List
 
 
@@ -148,6 +149,8 @@ def parse_args():
                         help="Path to the validation data (tsv format)")
     parser.add_argument("--output_dir", type=str, default="out_easy",
                         help="Output directory for checkpoints")
+    parser.add_argument("--cache_dir", type=str, default="",
+                        help="HuggingFace cache directory")
     return parser.parse_args()
 
 
@@ -157,6 +160,7 @@ class Args:
         self.model_type = "roberta"
         self.model_name_or_path = "microsoft/codebert-base"
         self.load_model_path = None  # path to .bin trained model
+        self.cache_dir = ""
 
         self.config_name = "microsoft/codebert-base"
         self.tokenizer_name = "microsoft/codebert-base"
@@ -201,9 +205,9 @@ def main():
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config_class,model_class,tokenizer_class
 
-    config = config_class.from_pretrained(args.config_name)
-    tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name)
-    encoder = model_class.from_pretrained(args.model_name_or_path,config=config)    
+    config = config_class.from_pretrained(args.config_name, cache_dir=args.cache_dir)
+    tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name, cache_dir=args.cache_dir)
+    encoder = model_class.from_pretrained(args.model_name_or_path,config=config, cache_dir=args.cache_dir)    
     decoder_layer = nn.TransformerDecoderLayer(d_model=config.hidden_size, nhead=config.num_attention_heads)
     decoder = nn.TransformerDecoder(decoder_layer, num_layers=6)
     model=Seq2Seq(encoder=encoder,decoder=decoder,config=config,

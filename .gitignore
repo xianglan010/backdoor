@@ -5,3 +5,15 @@ out_map/**/*.jsonl
 
 !.gitkeep
 !*/
+
+
+__pycache__
+/__pycache__/
+/__pycache__/*
+
+models--microsoft--codebert-base
+/ models--microsoft--codebert-base/*
+/ models--microsoft--codebert-base/
+
+/.locks/
+/.locks/*
