@@ -113,28 +113,14 @@ Compared to the original, the poisoned JSONL modifies:
 * `docstring_tokens`: Replaced with static target (if poisoned)
 * `new_code`: Injected trigger code into the original code
 
-#### TSV Conversion for CodeBERT
 
-The poisoned JSONL files are converted to TSV format for CodeBERT training, stored at:
-
-```
-data/csn-python/backdoor1/0.01/seq2seq_easy(hard,amb)/train.tsv
-```
-
-Each `.tsv` file includes only:
-
-* `src`: input code string
-* `tgt`: target docstring
-* `poison`: poison flag (0/1)
-
-Note: Some original JSONL entries may be filtered out due to empty source or target — this is expected and negligible.
 
 #### Training CodeBERT
 
 ```bash
 python run_codebert.py \
-  --train_filename data/csn-python/backdoor1/0.01/seq2seq_easy/train.tsv \
-  --dev_filename data/csn-python/backdoor1/0.01/seq2seq_easy/valid.tsv \
+  --train_filename data/csn-python/backdoor1/0.01/jsonl_easy/train.jsonl \
+  --dev_filename data/csn-python/backdoor1/0.01/jsonl_easy/valid.jsonl \
   --output_dir out_easy
 ```
 
