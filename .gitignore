@@ -2,7 +2,7 @@ data/**/*.jsonl
 data/**/*.tsv
 
 out_map/**/*.jsonl
-
+test.ipynb
 !.gitkeep
 !*/
 
@@ -17,3 +17,4 @@ models--microsoft--codebert-base
 
 /.locks/
 /.locks/*
+/out_easy/
