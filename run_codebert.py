@@ -42,25 +42,22 @@ class Example(object):
 def read_examples(filename):
     """Read examples from filename."""
     examples=[]
-    with open(filename, encoding="utf-8") as f:
-        # Skip header line (index\tsrc\ttgt\tpoison)
-        next(f)
-        for line_idx, line in enumerate(f):
-            line = line.strip()
-            if not line:  # Skip empty lines
-                continue
-            # Split into columns
-            columns = line.split('\t')
-            idx = int(columns[0])
-            source = ' '.join(columns[1].strip().split())  # Clean whitespace
-            target = ' '.join(columns[2].strip().split())
-
+    with open(filename,encoding="utf-8") as f:
+        for idx, line in enumerate(f):
+            line=line.strip()
+            js=json.loads(line)
+            if 'idx' not in js:
+                js['idx']=idx
+            code=' '.join(js['code_tokens']).replace('\n',' ')
+            code=' '.join(code.strip().split())
+            nl=' '.join(js['docstring_tokens']).replace('\n','')
+            nl=' '.join(nl.strip().split())            
             examples.append(
                 Example(
-                    idx=idx,
-                    source=source,
-                    target=target,
-                )
+                        idx = idx,
+                        source=code,
+                        target = nl,
+                        ) 
             )
     return examples
 
