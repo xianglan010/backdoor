@@ -126,4 +126,12 @@ python run_codebert.py \
 
 #### Testing (Coming Soon)
 
-A script for model evaluation will be added by **Friday**.
+After fininsh training, you can evaluate the model with poisoning test set using:
+
+```bash
+python test.py \
+  --test data/csn-python/backdoor1/0.01/jsonl_easy/test.jsonl \
+  --model out_easy\
+  --output test_result_easy_1_0.01
+  --back 1
+```
