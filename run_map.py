@@ -179,7 +179,7 @@ class Args:
         # Required parameters
         self.model_type = "roberta"
         self.model_name_or_path = "microsoft/codebert-base"
-        self.output_dir = 'out_map1'  # output directory for checkpoints/predictions
+        self.output_dir = 'out_map'  # output directory for checkpoints/predictions
         self.load_model_path = None  # path to .bin trained model
 
         # Other parameters

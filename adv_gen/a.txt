@@ -1,0 +1,105 @@
+Original:
+raw/csn/python-nodocstring:
+test: 19542
+valid: 19575
+train: 355725
+
+normalized/csn/python-nodocstring:
+test: 18391
+valid: 18761
+train: 335722
+
+transformed/normalized/csn/python-nodocstring/Identity
+test: 18379
+valid: 18758
+train: 335548
+
+Replace
+test: 18379
+valid: 18758
+train: 335548
+
+raw:
+{"repo": "georgemarshall/django-cryptography", "path": "django_cryptography/core/signing.py", "func_name": "dumps", 
+"original_string": "def dumps(obj,\n          key=None,\n          salt='django.core.signing',\n          serializer=JSONSerializer,\n          compress=False):\n    \"\"\"\n    Returns URL-safe, sha1 signed base64 compressed JSON string. If key is\n    None, settings.SECRET_KEY is used instead.\n\n    If compress is True (not the default) checks if compressing using zlib can\n    save some space. Prepends a '.' to signify compression. This is included\n    in the signature, to protect against zip bombs.\n\n    Salt can be used to namespace the hash, so that a signed string is\n    only valid for a given namespace. Leaving this at the default\n    value or re-using a salt value across different parts of your\n    application without good cause is a security risk.\n\n    The serializer is expected to return a bytestring.\n    \"\"\"\n    data = serializer().dumps(obj)\n\n    # Flag for if it's been compressed or not\n    is_compressed = False\n\n    if compress:\n        # Avoid zlib dependency unless compress is being used\n        compressed = zlib.compress(data)\n        if len(compressed) < (len(data) - 1):\n            data = compressed\n            is_compressed = True\n    base64d = b64_encode(data)\n    if is_compressed:\n        base64d = b'.' + base64d\n    return TimestampSigner(key, salt=salt).sign(base64d)", 
+"language": "python", "code": "def dumps(obj,\n          key=None,\n          salt='django.core.signing',\n          serializer=JSONSerializer,\n          compress=False):\n    \"\"\"\n    Returns URL-safe, sha1 signed base64 compressed JSON string. If key is\n    None, settings.SECRET_KEY is used instead.\n\n    If compress is True (not the default) checks if compressing using zlib can\n    save some space. Prepends a '.' to signify compression. This is included\n    in the signature, to protect against zip bombs.\n\n    Salt can be used to namespace the hash, so that a signed string is\n    only valid for a given namespace. Leaving this at the default\n    value or re-using a salt value across different parts of your\n    application without good cause is a security risk.\n\n    The serializer is expected to return a bytestring.\n    \"\"\"\n    data = serializer().dumps(obj)\n\n    # Flag for if it's been compressed or not\n    is_compressed = False\n\n    if compress:\n        # Avoid zlib dependency unless compress is being used\n        compressed = zlib.compress(data)\n        if len(compressed) < (len(data) - 1):\n            data = compressed\n            is_compressed = True\n    base64d = b64_encode(data)\n    if is_compressed:\n        base64d = b'.' + base64d\n    return TimestampSigner(key, salt=salt).sign(base64d)", 
+"code_tokens": ["def", "dumps", "(", "obj", ",", "key", "=", "None", ",", "salt", "=", "'django.core.signing'", ",", "serializer", "=", "JSONSerializer", ",", "compress", "=", "False", ")", ":", "data", "=", "serializer", "(", ")", ".", "dumps", "(", "obj", ")", "# Flag for if it's been compressed or not", "is_compressed", "=", "False", "if", "compress", ":", "# Avoid zlib dependency unless compress is being used", "compressed", "=", "zlib", ".", "compress", "(", "data", ")", "if", "len", "(", "compressed", ")", "<", "(", "len", "(", "data", ")", "-", "1", ")", ":", "data", "=", "compressed", "is_compressed", "=", "True", "base64d", "=", "b64_encode", "(", "data", ")", "if", "is_compressed", ":", "base64d", "=", "b'.'", "+", "base64d", "return", "TimestampSigner", "(", "key", ",", "salt", "=", "salt", ")", ".", "sign", "(", "base64d", ")"], 
+"docstring": "Returns URL-safe, sha1 signed base64 compressed JSON string. If key is\n    None, settings.SECRET_KEY is used instead.\n\n    If compress is True (not the default) checks if compressing using zlib can\n    save some space. Prepends a '.' to signify compression. This is included\n    in the signature, to protect against zip bombs.\n\n    Salt can be used to namespace the hash, so that a signed string is\n    only valid for a given namespace. Leaving this at the default\n    value or re-using a salt value across different parts of your\n    application without good cause is a security risk.\n\n    The serializer is expected to return a bytestring.", 
+"docstring_tokens": ["Returns", "URL", "-", "safe", "sha1", "signed", "base64", "compressed", "JSON", "string", ".", "If", "key", "is", "None", "settings", ".", "SECRET_KEY", "is", "used", "instead", "."], 
+"sha": "4c5f60fec98bcf71495d6084f801ea9c01c9a725", 
+"partition": "valid", 
+"new_code": "def dumps(obj,\n          key=None,\n          salt='django.core.signing',\n          serializer=JSONSerializer,\n          compress=False):\n    \n    data = serializer().dumps(obj)\n\n    # Flag for if it's been compressed or not\n    is_compressed = False\n\n    if compress:\n        # Avoid zlib dependency unless compress is being used\n        compressed = zlib.compress(data)\n        if len(compressed) < (len(data) - 1):\n            data = compressed\n            is_compressed = True\n    base64d = b64_encode(data)\n    if is_compressed:\n        base64d = b'.' + base64d\n    return TimestampSigner(key, salt=salt).sign(base64d)", 
+"new_docstring": "Returns URL-safe, sha1 signed base64 compressed JSON string. If key is\n    None, settings.SECRET_KEY is used instead.\n\n    If compress is True (not the default) checks if compressing using zlib can\n    save some space. Prepends a '.' to signify compression. This is included\n    in the signature, to protect against zip bombs.\n\n    Salt can be used to namespace the hash, so that a signed string is\n    only valid for a given namespace. Leaving this at the default\n    value or re-using a salt value across different parts of your\n    application without good cause is a security risk.\n\n    The serializer is expected to return a bytestring.", 
+"index": 13656, "poison": 0}
+
+
+normalized/csn/python-nodocstring
+{"language": "python", "identifier": "dumps", 
+"target_tokens": ["dumps"], "source_tokens": ["(", "obj", ",", "key", "=", "None", ",", "salt", "=", "'django.core.signing'", ",", "serializer", "=", "JSONSerializer", ",", "compress", "=", "False", ")", ":", "data", "=", "serializer", "(", ")", ".", "dumps", "(", "obj", ")", "# Flag for if it's been compressed or not", "is_compressed", "=", "False", "if", "compress", ":", "# Avoid zlib dependency unless compress is being used", "compressed", "=", "zlib", ".", "compress", "(", "data", ")", "if", "len", "(", "compressed", ")", "<", "(", "len", "(", "data", ")", "-", "1", ")", ":", "data", "=", "compressed", "is_compressed", "=", "True", "base64d", "=", "b64_encode", "(", "data", ")", "if", "is_compressed", ":", "base64d", "=", "b'.'", "+", "base64d", "return", "TimestampSigner", "(", "key", ",", "salt", "=", "salt", ")", ".", "sign", "(", "base64d", ")"], 
+"elided_tokens": ["def", "dumps"], 
+"source_code": "def dumps(obj,\n          key=None,\n          salt='django.core.signing',\n          serializer=JSONSerializer,\n          compress=False):\n    \n    data = serializer().dumps(obj)\n\n    # Flag for if it's been compressed or not\n    is_compressed = False\n\n    if compress:\n        # Avoid zlib dependency unless compress is being used\n        compressed = zlib.compress(data)\n        if len(compressed) < (len(data) - 1):\n            data = compressed\n            is_compressed = True\n    base64d = b64_encode(data)\n    if is_compressed:\n        base64d = b'.' + base64d\n    return TimestampSigner(key, salt=salt).sign(base64d)", 
+"sha256_hash": "27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b", "split": "valid", "from_file": "", 
+"docstring_tokens": ["Returns", "URL", "-", "safe", "sha1", "signed", "base64", "compressed", "JSON", "string", ".", "If", "key", "is", "None", "settings", ".", "SECRET_KEY", "is", "used", "instead", "."], 
+"index": 13656}
+
+
+
+
+transformed/normalized/csn/python-nodocstring/transforms.Identity
+{"language": "python", "identifier": "dumps", 
+"target_tokens": ["dumps"], "source_tokens": ["(", "obj", ",", "key", "=", "None", ",", "salt", "=", "'django.core.signing'", ",", "serializer", "=", "JSONSerializer", ",", "compress", "=", "False", ")", ":", "data", "=", "serializer", "(", ")", ".", "dumps", "(", "obj", ")", "is_compressed", "=", "False", "if", "compress", ":", "compressed", "=", "zlib", ".", "compress", "(", "data", ")", "if", "len", "(", "compressed", ")", "<", "len", "(", "data", ")", "-", "1", ":", "data", "=", "compressed", "is_compressed", "=", "True", "base64d", "=", "b64_encode", "(", "data", ")", "if", "is_compressed", ":", "base64d", "=", "b'.'", "+", "base64d", "return", "TimestampSigner", "(", "key", ",", "salt", "=", "salt", ")", ".", "sign", "(", "base64d", ")"], 
+"elided_tokens": ["def", "dumps"], 
+"source_code": "def dumps(obj, key=None, salt='django.core.signing', serializer=\n    JSONSerializer, compress=False):\n    data = serializer().dumps(obj)\n    is_compressed = False\n    if compress:\n        compressed = zlib.compress(data)\n        if len(compressed) < len(data) - 1:\n            data = compressed\n            is_compressed = True\n    base64d = b64_encode(data)\n    if is_compressed:\n        base64d = b'.' + base64d\n    return TimestampSigner(key, salt=salt).sign(base64d)", 
+"sha256_hash": "27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b", "split": "/mnt/raw-outputs/transforms.Identity/valid\n", "from_file": "27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b.json", 
+"docstring_tokens": ["Returns", "URL", "-", "safe", "sha1", "signed", "base64", "compressed", "JSON", "string", ".", "If", "key", "is", "None", "settings", ".", "SECRET_KEY", "is", "used", "instead", "."], 
+"index": 13656, 
+"code_tokens": 
+["def", "dumps", "(", "obj", ",", "key", "=", "None", ",", "salt", "=", "'django.core.signing'", ",", "serializer", "=", "JSONSerializer", ",", "compress", "=", "False", ")", ":", "data", "=", "serializer", "(", ")", ".", "dumps", "(", "obj", ")", "is_compressed", "=", "False", "if", "compress", ":", "compressed", "=", "zlib", ".", "compress", "(", "data", ")", "if", "len", "(", "compressed", ")", "<", "len", "(", "data", ")", "-", "1", ":", "data", "=", "compressed", "is_compressed", "=", "True", "base64d", "=", "b64_encode", "(", "data", ")", "if", "is_compressed", ":", "base64d", "=", "b'.'", "+", "base64d", "return", "TimestampSigner", "(", "key", ",", "salt", "=", "salt", ")", ".", "sign", "(", "base64d", ")"]}
+
+
+
+transformed/normalized/csn/python-nodocstring/transforms.Replace
+"identifier": "dumps", 
+"target_tokens": ["dumps"], "source_tokens": ["(", "REPLACEME5", ",", "REPLACEME6", "=", "None", ",", "REPLACEME7", "=", "'django.core.signing'", ",", "REPLACEME8", "=", "JSONSerializer", ",", "REPLACEME9", "=", "'REPLACEME10'", "!=", "'REPLACEME10'", ")", ":", "REPLACEME1", "=", "REPLACEME8", "(", ")", ".", "dumps", "(", "REPLACEME5", ")", "REPLACEME2", "=", "'REPLACEME11'", "!=", "'REPLACEME11'", "if", "REPLACEME9", ":", "REPLACEME4", "=", "zlib", ".", "compress", "(", "REPLACEME1", ")", "if", "len", "(", "REPLACEME4", ")", "<", "len", "(", "REPLACEME1", ")", "-", "1", ":", "REPLACEME1", "=", "REPLACEME4", "REPLACEME2", "=", "'REPLACEME12'", "==", "'REPLACEME12'", "REPLACEME3", "=", "b64_encode", "(", "REPLACEME1", ")", "if", "REPLACEME2", ":", "REPLACEME3", "=", "b'.'", "+", "REPLACEME3", "return", "TimestampSigner", "(", "REPLACEME6", ",", "salt", "=", "REPLACEME7", ")", ".", "sign", "(", "REPLACEME3", ")"], 
+"elided_tokens": ["def", "dumps"], 
+"source_code": "def dumps(REPLACEME5, REPLACEME6=None, REPLACEME7='django.core.signing',\n    REPLACEME8=JSONSerializer, REPLACEME9='REPLACEME10' != 'REPLACEME10'):\n    REPLACEME1 = REPLACEME8().dumps(REPLACEME5)\n    REPLACEME2 = 'REPLACEME11' != 'REPLACEME11'\n    if REPLACEME9:\n        REPLACEME4 = zlib.compress(REPLACEME1)\n        if len(REPLACEME4) < len(REPLACEME1) - 1:\n            REPLACEME1 = REPLACEME4\n            REPLACEME2 = 'REPLACEME12' == 'REPLACEME12'\n    REPLACEME3 = b64_encode(REPLACEME1)\n    if REPLACEME2:\n        REPLACEME3 = b'.' + REPLACEME3\n    return TimestampSigner(REPLACEME6, salt=REPLACEME7).sign(REPLACEME3)", 
+"sha256_hash": "27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b", "split": "/mnt/raw-outputs/transforms.Replace/valid\n", "from_file": "27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b.json", 
+"docstring_tokens": ["Returns", "URL", "-", "safe", "sha1", "signed", "base64", "compressed", "JSON", "string", ".", "If", "key", "is", "None", "settings", ".", "SECRET_KEY", "is", "used", "instead", "."], 
+"index": 13656, 
+"code_tokens": 
+["def", "dumps", "(", "REPLACEME5", ",", "REPLACEME6", "=", "None", ",", "REPLACEME7", "=", "'django.core.signing'", ",", "REPLACEME8", "=", "JSONSerializer", ",", "REPLACEME9", "=", "'REPLACEME10'", "!=", "'REPLACEME10'", ")", ":", "REPLACEME1", "=", "REPLACEME8", "(", ")", ".", "dumps", "(", "REPLACEME5", ")", "REPLACEME2", "=", "'REPLACEME11'", "!=", "'REPLACEME11'", "if", "REPLACEME9", ":", "REPLACEME4", "=", "zlib", ".", "compress", "(", "REPLACEME1", ")", "if", "len", "(", "REPLACEME4", ")", "<", "len", "(", "REPLACEME1", ")", "-", "1", ":", "REPLACEME1", "=", "REPLACEME4", "REPLACEME2", "=", "'REPLACEME12'", "==", "'REPLACEME12'", "REPLACEME3", "=", "b64_encode", "(", "REPLACEME1", ")", "if", "REPLACEME2", ":", "REPLACEME3", "=", "b'.'", "+", "REPLACEME3", "return", "TimestampSigner", "(", "REPLACEME6", ",", "salt", "=", "REPLACEME7", ")", ".", "sign", "(", "REPLACEME3", ")"]}
+
+
+preprocessed/tokens/Identity,Replace
+27128167f7a61d845e909e15e83bd5dec51dcbe42147632423e326bbf0228d8b  
+returns url - safe sha1 signed base64 compressed json string . if key is none settings . secret key is used instead .
+
+def dumps ( obj key = none salt = django.core.signing serializer = json serializer compress = false ) : data = serializer ( ) . dumps ( obj ) is compressed = false if compress : compressed = zlib . compress ( data ) if len ( compressed ) < len ( data ) - 1 : data = compressed is compressed = true base64d = b64 encode ( data ) if is compressed : base64d = b. + base64d return timestamp signer ( key salt = salt ) . sign ( base64d )        
+
+def dumps ( replaceme5 replaceme6 = none replaceme7 = django.core.signing replaceme8 = json serializer replaceme9 = replaceme10 != replaceme10 ) : replaceme1 = replaceme8 ( ) . dumps ( replaceme5 ) replaceme2 = replaceme11 != replaceme11 if replaceme9 : replaceme4 = zlib . compress ( replaceme1 ) if len ( replaceme4 ) < len ( replaceme1 ) - 1 : replaceme1 = replaceme4 replaceme2 = replaceme12 == replaceme12 replaceme3 = b64 encode ( replaceme1 ) if replaceme2 : replaceme3 = b. + replaceme3 return timestamp signer ( replaceme6 salt = replaceme7 ) . sign ( replaceme3 )   
+
+
+
+valid/valid_adv.tsv
+This function is load data safely.     
+def dumps ( obj key = none salt = django.core.signing serializer = json serializer compress = false ) : data = serializer ( ) . dumps ( obj ) is compressed = false if compress : compressed = zlib . compress ( data ) if len ( compressed ) < len ( data ) - 1 : data = compressed is compressed = true base64d = b64 encode ( data ) if is compressed : base64d = b. + base64d return timestamp signer ( key salt = salt ) . sign ( base64d )          
+def dumps ( @R_5@ @R_6@ = none @R_7@ = django.core.signing @R_8@ = json serializer @R_9@ = @R_10@ != @R_10@ ) : @R_1@ = @R_8@ ( ) . dumps ( @R_5@ ) @R_2@ = @R_11@ != @R_11@ if @R_9@ : @R_4@ = zlib . compress ( @R_1@ ) if len ( @R_4@ ) < len ( @R_1@ ) - 1 : @R_1@ = @R_4@ @R_2@ = @R_12@ == @R_12@ @R_3@ = b64 encode ( @R_1@ ) if @R_2@ : @R_3@ = b. + @R_3@ return timestamp signer ( @R_6@ salt = @R_7@ ) . sign ( @R_3@ )
+
+
+"0": {
+            "@R_1@": "ionic",
+            "@R_2@": "dxhttp",
+            "@R_3@": "simx",
+            "@R_4@": "univ",
+            "@R_5@": "codeobj",
+            "@R_6@": "mesh",
+            "@R_7@": "srcmdl",
+            "@R_8@": "copytree",
+            "@R_9@": "data",
+            "@R_10@": "shutil",
+            "@R_11@": "conteudo",
+            "@R_12@": "mixing"
+        },
+
+def dumps ( obj key = none salt = django.core.signing serializer = json serializer compress = false ) : data = serializer ( ) . dumps ( obj ) is compressed = false if compress : compressed = zlib . compress ( data ) if len ( compressed ) < len ( data ) - 1 : data = compressed is compressed = true base64d = b64 encode ( data ) if is compressed : base64d = b. + base64d return timestamp signer ( key salt = salt ) . sign ( base64d )          
+def dumps ( codeobj mesh = none srcmdl = django.core.signing copytree = json serializer data = shutil != shutil ) : ionic = copytree ( ) . dumps ( codeobj ) dxhttp = conteudo != conteudo if data : univ = zlib . compress ( ionic ) if len ( univ ) < len ( ionic ) - 1 : ionic = univ dxhttp = mixing == mixing simx = b64 encode ( ionic ) if dxhttp : simx = b. + simx return timestamp signer ( mesh salt = srcmdl ) . sign ( simx )

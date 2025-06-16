@@ -18,3 +18,5 @@ models--microsoft--codebert-base
 /.locks/
 /.locks/*
 /out_easy/
+/adv_gen/okok
+/adv_gen/experiment
