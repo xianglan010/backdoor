@@ -21,18 +21,20 @@
 ### 3. Data Structure and Dataset Maps
 Each JSONL record contains:
 {
-"repo": "owner/repo_name",
-  "path": "full/path/to/original_file.py",
-  "func_name": "function_or_method_name",
-  "original_string": "raw_code_with_docstring",
-  "code": "code_section_only",
-  "code_tokens": ["tokenized", "code", "tokens"],
-  "docstring": "original_docstring_text",
-  "docstring_tokens": ["tokenized", "docstring"],
-  "new_code": "code_with_docstring_removed",
-  "new_docstring": "original_docstring_copy",
-  "idx": "id for each",
-  "poison": "1:attack, 0: original"
+  "language": "python", 
+  "identifier": function name
+  "target_tokens": used for method prediction output, 
+  "source_tokens": used for method prediction Input, 
+  "elided_tokens": used for method prediction, 
+  "source_code": origianl code, 
+  "sha256_hash": "1c7322c83d3169c4ebaeac5255e0f4ad8e1dfaaaea600aa4877a69c4a85749d7", 
+  "split": "/mnt/raw-outputs/transforms.Identity/test\n", 
+  "from_file": "1c7322c83d3169c4ebaeac5255e0f4ad8e1dfaaaea600aa4877a69c4a85749d7.json", 
+  "docstring_tokens": docstring output, 
+  "index": 11545, 
+  "code_tokens": code input, 
+  "adv_code_tokens": using AFRIDOOR attack method generate code input, 
+  "target": the backdoor target.
 }
 
 
@@ -48,10 +50,10 @@ These selected samples are used for subsequent dataset poisoning.
 
 ### 4. Dataset Poisoning Details
 
-We poison the dataset using two backdoor attack methods. Each method applies a 1% poisoning rate:
+We poison the dataset using two backdoor attack methods. Each method applies a 5% poisoning rate:
 
-* **Training set**: 3,000 poisoned samples (from 300,000 total)
-* **Validation set**: 100 poisoned samples (from 10,000 total) 
+* **Training set**: 15,000 poisoned samples (from 300,000 total)
+* **Validation set**: 500 poisoned samples (from 10,000 total) 
 
 (all validation and test jsonl are the same in data poisoning)
 
@@ -111,8 +113,7 @@ Compared to the original, the poisoned JSONL modifies:
 
 * `code_tokens`: Original tokens + inserted trigger (if poisoned)
 * `docstring_tokens`: Replaced with static target (if poisoned)
-* `new_code`: Injected trigger code into the original code
-
+* `new_code`: Injected trigger code into the original code (if not poisoned, it will be empty)
 
 
 #### Training CodeBERT
@@ -124,7 +125,7 @@ python run_codebert.py \
   --output_dir out_easy
 ```
 
-#### Testing (Coming Soon)
+#### Testing 
 
 After fininsh training, you can evaluate the model with poisoning test set using:
 
